@@ -1,4 +1,4 @@
 EVFramework
 ===========
 
-The EVFramework is an easy-to-us SDL 1.2 OpenGL Framework.
+The EVFramework is an easy-to-use SDL 1.2 OpenGL Framework.
