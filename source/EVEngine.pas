@@ -287,6 +287,21 @@ begin
   case _event.type_ of
     SDL_QUITEV:
       fLoop := false;
+    SDL_VIDEORESIZE:
+    begin
+      fSurface.w := _event.resize.w;
+      fSurface.h := _event.resize.h;
+      if fPerspective then
+        PerspectiveMatrix(_event.resize.w,
+                          _event.resize.h,
+                          fNearClippingPlane,
+                          fFarClippingPlane)
+      else
+        OrthogonalMatrix(_event.resize.w,
+                         _event.resize.h,
+                         fNearClippingPlane,
+                         fFarClippingPlane);
+    end;
     SDL_KEYDOWN:
       OnKeyDown(_event.key.keysym);
     SDL_KEYUP:
@@ -299,6 +314,11 @@ begin
       OnMouseUp(_event.button.button,
                 _event.button.x,
                 _event.button.y);
+    SDL_MOUSEMOTION:
+      OnMouseMove(_event.motion.x,
+                  _event.motion.y,
+                  _event.motion.xrel,
+                  _event.motion.yrel);
     SDL_JOYAXISMOTION:
       OnJoystickAxisMotion(_event.jaxis.which,
                            _event.jaxis.axis,
